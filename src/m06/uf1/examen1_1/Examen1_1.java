@@ -19,7 +19,7 @@ public class Examen1_1 {
 	File DESTI = new File("DestiExamen");
 	static int MOGUT = 0;
 
-	// Al main cridem a la funció existeixDirectori() que ja s'encarrega de cridar
+	// Al ExamenMain cridem a la funció existeixDirectori() que ja s'encarrega de cridar
 	// les altres funcions.
 	public static void main(String[] args) {
 		Examen1_1 e = new Examen1_1();
