@@ -1,7 +1,12 @@
 package m06.uf1.examen1_2;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class examen1_2 {
 
@@ -14,8 +19,7 @@ public class examen1_2 {
 		examen1_2 examen = new examen1_2();
 		examen.dades();
 		examen.comprovarDirectori();
-		
-		
+
 	}
 
 	public void dades() {
@@ -57,15 +61,53 @@ public class examen1_2 {
 		} else {
 			LOG.addLine("El fitxer " + RESULTAT.getName() + " existeix.");
 		}
+		llegirFitxers();
 	}
 
-	public String llegirFitxers() {
+	public void llegirFitxers() throws IOException {
+		File dEmpleats = new File("empleats");
+		String linea, fraseFinal = "";
+		int cont = 0;
+		BufferedReader br = null;
+		List<File> llistaFitxers = Arrays.asList(dEmpleats.listFiles());
+		try {
 
-		return "";
+			for (File f : llistaFitxers) {
+				br = new BufferedReader(new FileReader(f));
+				while ((linea = br.readLine()) != null) {
+					if (!linea.contains(":")) {
+						fraseFinal += linea;
+					} else if (linea.contains("CARREC:")) {
+						fraseFinal += linea.replace("CARREC:", ", ");
+					} else if (linea.contains("DEPARTAMENT:")) {
+						fraseFinal += linea.replace("DEPARTAMENT:", ", ");
+					} else if (linea.contains("NSS:")) {
+						fraseFinal += linea.replace("NSS:", ", ");
+					}
+				}
+				escriureFitxers(fraseFinal);
+				cont++;
+				fraseFinal = "";
+			}
+			
+			LOG.addLine("S'han escrit a " + RESULTAT.getName() + " " + cont + " lineas.");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			br.close();
+		}
 	}
 
-	public void escriureFitxers() {
+	public void escriureFitxers(String frase) {
+		try {
+			FileWriter fw = new FileWriter(RESULTAT, true);
+			fw.append(frase + "\n");
+			fw.close();
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
