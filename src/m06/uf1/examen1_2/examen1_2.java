@@ -13,7 +13,7 @@ public class examen1_2 {
 	final String RUTALOG = "logs";
 	File DLOG = null;
 	File RESULTAT = new File("resultats.txt");
-	Log LOG = new Log(RUTALOG);
+	Log LOG;
 
 	public static void main(String[] args) throws IOException {
 		examen1_2 examen = new examen1_2();
@@ -22,12 +22,15 @@ public class examen1_2 {
 
 	}
 
+	//Demana les dades pertinents. Utilitzo una classe LOG per crear el fitxer
 	public void dades() {
 		DLOG = new File(RUTALOG);
+		LOG = new Log(RUTALOG);
 	}
 
-	public boolean comprovarDirectori() throws IOException {
-
+	//Comprova si el directori LOGS existeix
+	public void comprovarDirectori() throws IOException {
+		
 		if (!DLOG.exists()) {
 			System.out.println("El directori " + DLOG.getAbsolutePath() + " no existeix.");
 			crearDirectori();
@@ -35,10 +38,9 @@ public class examen1_2 {
 			LOG.addLine("El directori " + DLOG.getAbsolutePath() + " existeix.");
 			crearFitxerResultat();
 		}
-
-		return true;
 	}
 
+	//Crea el directori si no existeix
 	public void crearDirectori() throws IOException {
 		if (DLOG.mkdir()) {
 			LOG.addLine("S'ha creat el direcotri " + DLOG.getAbsolutePath());
@@ -49,6 +51,7 @@ public class examen1_2 {
 		}
 	}
 
+	//Crea el fitxer RESULTAT si no existeix
 	public void crearFitxerResultat() throws IOException {
 		if (!RESULTAT.exists()) {
 			LOG.addLine("El fitxer resultat no existeix.");
@@ -64,6 +67,7 @@ public class examen1_2 {
 		llegirFitxers();
 	}
 
+	//Llegeix els fitxers de la subcarpeta
 	public void llegirFitxers() throws IOException {
 		File dEmpleats = new File("empleats");
 		String linea, fraseFinal = "";
@@ -71,7 +75,7 @@ public class examen1_2 {
 		BufferedReader br = null;
 		List<File> llistaFitxers = Arrays.asList(dEmpleats.listFiles());
 		try {
-
+			//Recorre cada fitxer eliminant el contingut que no ens interessa i generant la frase final
 			for (File f : llistaFitxers) {
 				br = new BufferedReader(new FileReader(f));
 				while ((linea = br.readLine()) != null) {
@@ -85,8 +89,10 @@ public class examen1_2 {
 						fraseFinal += linea.replace("NSS:", ", ");
 					}
 				}
+				//Finalment escriu la linea al fitxer resultats.txt
 				escriureFitxers(fraseFinal);
 				cont++;
+				//Reseteja la frase a "" per poder tornar a escriure
 				fraseFinal = "";
 			}
 			
@@ -99,6 +105,7 @@ public class examen1_2 {
 		}
 	}
 
+	//Escriu al fitxer resultats.txt
 	public void escriureFitxers(String frase) {
 		try {
 			FileWriter fw = new FileWriter(RESULTAT, true);
