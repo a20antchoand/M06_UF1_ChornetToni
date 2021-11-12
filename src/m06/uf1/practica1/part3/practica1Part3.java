@@ -2,13 +2,20 @@ package m06.uf1.practica1.part3;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 public class practica1Part3 {
 
 	static File dLog;
 	static File dDesti;
 	static File dOrigen;
+	static File dXML;
 	static Log log = new Log();
 
 	public static void main(String[] args) {
@@ -24,6 +31,7 @@ public class practica1Part3 {
 		dOrigen = new File("Origen");
 		dDesti = new File("Desti");
 		dLog = new File("Logs");
+		dXML = new File("XML");
 	}
 
 	public static void Existeix() throws IOException {
@@ -54,6 +62,29 @@ public class practica1Part3 {
 			}
 		} else {
 			log.addLine("El directori " + dDesti.getName() + " existeix. \n");
+		}
+		
+		if (!dXML.exists()) {
+
+			if (dXML.mkdir()) {
+				log.addLine("S'ha creat la carpeta de destí: " + dXML.getAbsolutePath() + "\n");
+				Element empleats = new Element("empleats");
+	            Document document = new Document(empleats);
+	            XMLOutputter xmlOutput = new XMLOutputter();
+                xmlOutput.setFormat(Format.getPrettyFormat());
+                xmlOutput.output(document, new FileWriter("XML/empleats"));
+			} else {
+				log.addLine("No s'ha pogut crear el directori " + dXML.getName() + "\n");
+			}
+		} else {
+			log.addLine("El directori " + dXML.getName() + " existeix. \n");
+			if (dXML.listFiles().length == 0) {
+				Element empleats = new Element("empleats");
+	            Document document = new Document(empleats);
+	            XMLOutputter xmlOutput = new XMLOutputter();
+	            xmlOutput.setFormat(Format.getPrettyFormat());
+	            xmlOutput.output(document, new FileWriter("XML/empleats"));
+				}
 		}
 
 		if (op) {
