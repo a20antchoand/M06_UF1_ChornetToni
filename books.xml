@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore>
+  <book>
+    <author>Roal Dahl</author>
+    <title>Charlie and the chocolate factory</title>
+    <year>1964</year>
+  </book>
+  <book>
+    <author>JK Rowling</author>
+    <title>Harry Potter</title>
+    <year>2005</year>
+  </book>
+  <book>
+    <author>Ripley's game</author>
+    <title>PAtricia Highsmith</title>
+    <year>1074</year>
+  </book>
+  <book>
+    <author>W.Shakespeare</author>
+    <title>Hamlet</title>
+    <year>1600</year>
+  </book>
+  <book>
+    <author>W.Shakespeare</author>
+    <title>Hamlet</title>
+    <year>1600</year>
+  </book>
+  <book>
+    <author>W.Shakespeare</author>
+    <title>Hamlet</title>
+    <year>1600</year>
+  </book>
+  <book>
+    <author>W.Shakespeare</author>
+    <title>Hamlet</title>
+    <year>1600</year>
+  </book>
+</bookstore>
